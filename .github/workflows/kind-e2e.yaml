@@ -1,0 +1,30 @@
+name: KinD e2e tests
+
+on:
+  push:
+    branches: [ 'main', 'release-*' ]
+  pull_request:
+    branches: [ 'main', 'release-*' ]
+
+jobs:
+  ko-resolve:
+    name: e2e tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # Keep running if one leg fails.
+
+    env:
+      GOPATH: ${{ github.workspace }}
+      GO111MODULE: off
+      KO_DOCKER_REPO: kind.local
+
+    steps:
+    - name: Set up Go 1.14.x
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.14.x
+
+    - name: Install Dependencies
+      run: |
+        GO111MODULE=on go get github.com/google/ko/cmd/ko@master
+
