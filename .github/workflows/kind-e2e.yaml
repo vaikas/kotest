@@ -15,7 +15,7 @@ jobs:
 
     env:
       GOPATH: ${{ github.workspace }}
-      GO111MODULE: off
+      GO111MODULE: on
       KO_DOCKER_REPO: kind.local
 
     steps:
@@ -26,5 +26,5 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        GO111MODULE=on go get github.com/google/ko/cmd/ko@master
+        go get github.com/google/ko
 
